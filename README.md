@@ -1,11 +1,11 @@
-# koa-session-mongo
+# koa-mongodb-session
 
 MongoDB backed session middleware for [koa.js](http://koajs.com/)
 
 ## Installation
 
 ```js
-$ npm install koa-session-mongo
+$ npm install koa-mongodb-session
 ```
 
 ## Example
@@ -13,7 +13,7 @@ $ npm install koa-session-mongo
 View counter example:
 
 ```js
-var session = require('koa-session-mongo');
+var session = require('koa-mongodb-session');
 var mongo = require('mongodb').MongoClient;
 var koa = require('koa');
 
@@ -254,4 +254,4 @@ If an error occurs during a database update it will be passed back to `koa`.
 
 ## License
 
-[MIT](https://github.com/aheckmann/koa-session-mongo/blob/master/LICENSE)
+[MIT](https://github.com/aheckmann/koa-mongodb-session/blob/master/LICENSE)

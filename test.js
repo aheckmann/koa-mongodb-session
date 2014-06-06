@@ -4,7 +4,7 @@ var koaSession = require('./');
 var mongo = require('mongodb').MongoClient;
 var assert = require('assert');
 
-var uri = process.env.KOA_SESSION_MONGO_TEST_URI || 'mongodb://localhost/koa-session-mongo';
+var uri = process.env.KOA_SESSION_MONGO_TEST_URI || 'mongodb://localhost/koa-mongodb-session';
 
 describe('Koa Session Mongo', function(){
   var cookie;

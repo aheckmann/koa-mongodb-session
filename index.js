@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var debug = require('debug')('koa-session-mongo:middleware');
+var debug = require('debug')('koa-mongodb-session:middleware');
 var mongoSession = require('./session');
 
 /**

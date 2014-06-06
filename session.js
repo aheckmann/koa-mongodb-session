@@ -3,7 +3,7 @@
  * dependencies
  */
 
-var debug = require('debug')('koa-session-mongo:session');
+var debug = require('debug')('koa-mongodb-session:session');
 var assert = require('assert');
 var slice = require('sliced');
 var eql = require('mongo-eql');
