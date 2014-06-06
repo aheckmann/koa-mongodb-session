@@ -9,7 +9,8 @@
   "author": "Aaron Heckmann <aaron.heckmann+github@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "mongo-eql": "^0.1.1",
+    "mongo-eql": "0.1.1",
+    "mongo-query": "0.5.2",
     "observed": "1.0.0",
     "uid2": "0.0.3"
   },

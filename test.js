@@ -337,7 +337,10 @@ describe('Koa Session Mongo', function(){
         var app = App();
 
         app.use(function *(){
-          this.session = { message: 'hello' };
+          this.session.huh = false;
+          this.session = { message: 'hello', age: 108 };
+          assert.equal('hello', this.session.message);
+          assert.equal(108, this.session.age);
           this.body = 'asdf';
         })
 
@@ -437,9 +440,9 @@ describe('Koa Session Mongo', function(){
 
       app.use(function *(){
         assert.equal(undefined, this.session.name);
-        yield this.session.$set('name', 'koa');
-        this.session.$unset('name');
-        this.body = this.session.name || 'nope'
+        yield this.session.$set('name.last', 'koa');
+        this.session.$unset('name.last');
+        this.body = this.session.name.last || 'nope'
       })
 
       var server = app.listen();
@@ -454,10 +457,10 @@ describe('Koa Session Mongo', function(){
 
       app.use(function *(){
         assert.equal(undefined, this.session.name);
-        yield this.session.$set('name', 'koa');
-        yield this.session.$unset('name');
+        yield this.session.$set('name.last', 'koa');
+        yield this.session.$unset('name.last');
         yield this.session.$reload();
-        this.body = this.session.name || 'nope'
+        this.body = this.session.name.last || 'nope'
       })
 
       var server = app.listen();
@@ -715,11 +718,11 @@ describe('Koa Session Mongo', function(){
 
       app.use(function *(){
         if ('POST' == this.method) {
-          yield this.session.$pushAll('array', [2,4,6,4,2]);
-          this.session.$pullAll('array', [2,4]);
+          yield this.session.$pushAll('array', [2,4,['hi'],6,4,{y:{z:true}},2]);
+          this.session.$pullAll('array', [2,4, ['hi'], { y: { z: true }}]);
           this.body = this.session.array.length;
         } else {
-          this.body = this.session.array[0];
+          this.body = this.session.array;
         }
       })
 
@@ -735,7 +738,7 @@ describe('Koa Session Mongo', function(){
         request(server)
         .get('/')
         .set('Cookie', cookie.join(';'))
-        .expect('6', done);
+        .expect('[6]', done);
       });
     });
 
@@ -811,11 +814,11 @@ describe('Koa Session Mongo', function(){
 
       app.use(function *(){
         if ('POST' == this.method) {
-          yield this.session.$pushAll('array', [1,2,3,4]);
-          this.session.$shift('array');
-          this.body = this.session.array[0];
+          yield this.session.$pushAll('thing.array', [1,2,3,4]);
+          this.session.$shift('thing.array');
+          this.body = this.session.thing.array[0];
         } else {
-          this.body = this.session.array[0];
+          this.body = this.session.thing.array[0];
         }
       })
 
