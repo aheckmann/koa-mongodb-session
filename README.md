@@ -21,6 +21,7 @@ mongo.connect(uri, function(err, db){
   if (err) throw err;
 
   var app = koa();
+  app.key = 'sid';
   app.keys = ['some secret'];
   app.use(session({ collection: db.collection('session') }));
 
@@ -43,6 +44,9 @@ of populating the session.
 ## API
 
 ### Options
+
+A mongodb [collection](http://mongodb.github.io/node-mongodb-native/api-generated/collection.html)
+object in which all session objects will be stored is required.
 
 The cookie name is controlled by the `key` option, which defaults
 to "sid". All other options are passed to `ctx.cookies.get()` and
@@ -235,10 +239,19 @@ app.use(function *() {
 The session modifiers not only buffer atomic operations for later execution but
 also operate directly on the in-memory session object.
 
+```js
+app.use(function *() {
+  this.session.$set('namme', 'aaron');
+  this.session.$rename('namme', 'name');
+  console.log(this.session.namme) // undefined
+  console.log(this.session.name)  // 'aaron'
+})
+```
+
 ### Error handling
 
 If an error occurs during a database update it will be passed back to `koa`.
 
 ## License
 
-[MIT](https://github.com/aheckmann/koa-session-mongodb/blob/master/LICENSE)
+[MIT](https://github.com/aheckmann/koa-session-mongo/blob/master/LICENSE)
