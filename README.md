@@ -21,9 +21,11 @@ mongo.connect(uri, function(err, db){
   if (err) throw err;
 
   var app = koa();
-  app.key = 'sid';
   app.keys = ['some secret'];
-  app.use(session({ collection: db.collection('session') }));
+  app.use(session({
+    key: 'sid',
+    collection: db.collection('session')
+  }));
 
   app.use(function *(){
     this.session.$inc('views', 1);
