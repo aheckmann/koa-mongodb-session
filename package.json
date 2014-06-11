@@ -9,12 +9,12 @@
   "author": "Aaron Heckmann <aaron.heckmann+github@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "debug": "0.8.1",
     "mongo-eql": "0.1.1",
     "mongo-query": "0.5.2",
     "uid2": "0.0.3"
   },
   "devDependencies": {
-    "debug": "0.8.1",
     "koa": "0.6.1",
     "mocha": "1.18.2",
     "should": "3.3.1",
