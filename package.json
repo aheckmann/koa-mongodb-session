@@ -1,6 +1,6 @@
 {
   "name": "koa-mongodb-session",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "koajs sessions backed by mongodb",
   "main": "index.js",
   "scripts": {
