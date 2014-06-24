@@ -357,15 +357,17 @@ module.exports = exports = function(opts){
    */
 
   Session.prototype.$init = function(id, obj) {
-    var keys = Object.keys(obj);
-    var key;
+    if (obj) {
+      var keys = Object.keys(obj);
+      var key;
 
-    for (var i = 0; i < keys.length; ++i) {
-      key = keys[i];
-      if ('$' == key[0]) continue;
-      if ('_id' == key) continue;
-      if ('isNew' == key) continue;
-      else this[key] = obj[key];
+      for (var i = 0; i < keys.length; ++i) {
+        key = keys[i];
+        if ('$' == key[0]) continue;
+        if ('_id' == key) continue;
+        if ('isNew' == key) continue;
+        else this[key] = obj[key];
+      }
     }
 
     // can't change session id

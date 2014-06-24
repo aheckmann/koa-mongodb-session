@@ -986,5 +986,41 @@ describe('Koa Session Mongo', function(){
       .expect(500, done);
     });
   });
+
+  describe('when cookie with sid exists but no document is found', function() {
+    it('works (gh-6)', function(done) {
+      var app = App();
+      var id;
+
+      app.use(function *(){
+        if ('/setup' == this.url) {
+          this.session.$set('name', '#gh-6');
+          this.body = 'setup';
+          id = this.session.id;
+        } else {
+          this.body = 'works';
+        }
+      })
+
+      var server = app.listen();
+
+      request(server)
+      .get('/setup')
+      .expect('setup', function(err, res) {
+        if (err) return done(err);
+
+        var cookie = res.headers['set-cookie'];
+
+        col.remove({ _id: id }, function(err) {
+          if (err) return done(err);
+
+          request(server)
+          .get('/')
+          .set('Cookie', cookie.join(';'))
+          .expect('works', done);
+        });
+      });
+    });
+  });
 })
 
